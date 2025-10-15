@@ -109,6 +109,12 @@ package client
     {
         +CoffeeShopGUI()
     }
+
+    class ConsoleShop
+    {
+        +ConsoleShop()
+    }
+    caption for testing purposes 
 }
 
 class App
