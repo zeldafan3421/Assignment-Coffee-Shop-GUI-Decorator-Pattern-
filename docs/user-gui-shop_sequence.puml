@@ -1,0 +1,33 @@
+@startuml user-gui-shop
+
+user->gui:execute app
+gui-->shop:Instanciate shop
+
+shop-->gui:send list of base options
+gui->user:display list of base options
+
+user->gui:user selection
+gui-->shop:send user selection
+shop-->gui:send list of addon options
+
+gui->user:show possible addons
+user->gui:select addon
+gui-->shop: send selection
+shop-->gui: ask for another selection
+
+gui->user: show question
+user->gui:answer question
+gui-->shop:forward answer
+
+activate shop
+shop-->gui:respond to answer
+shop-->shop:process answer 
+shop-->gui:ask again
+shop-->shop:process answer
+shop-->gui: send final selection
+deactivate shop
+
+gui->user:show final selection
+shop-->gui:send receipt
+gui-->user:show receipt items
+@enduml

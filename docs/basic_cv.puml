@@ -1,0 +1,119 @@
+@startuml basic_cv
+
+title Simple Coffee GUI
+
+package core
+{
+    abstract class CoffeeBase
+    {
+        -Size size
+        -String description
+
+        #CoffeeBase(desc, size)
+        +getDescription()
+        +getSize()
+        {abstract} +cost()
+    }
+    
+    abstract class CondimentBase
+    {
+        -CoffeeBase owner
+
+        #CondimentBase(owner, desc, size)
+        +getOwner()
+    }
+    
+    class DecafCoffee
+    {
+        +DecafCoffee(size)
+        +cost()
+    }
+    class Expresso
+    {
+        +Expresso(size)
+        +cost()
+    }
+    class HomeBlend
+    {
+        +Expresso(size)
+        +cost()
+    }
+    class DarkRoast
+    {
+        +DarkRoast(size)
+        +cost()
+    }
+    
+    class Mocha
+    {
+        +Mocha(owner)
+        +cost()
+    }
+
+    class Soy
+    {
+        +Soy(owner)
+        +cost()
+    }
+
+    class Milk
+    {
+        +Milk(owner)
+        +cost()
+    }
+
+    class Whip
+    {
+        +Whip(owner)
+        +cost()
+    }
+
+    class Caramel 
+    {
+        +Caramel(owner)
+        +cost()
+    }
+
+    class Vanilla
+    {
+        +Vanilla(owner)
+        +cost()
+    }
+
+    enum Size 
+    {
+        SMALL
+        MEDIUM
+        LARGE
+    }
+}
+
+CoffeeBase <|.. DecafCoffee
+CoffeeBase <|.. Expresso
+CoffeeBase <|.. HomeBlend
+CoffeeBase <|.. DarkRoast
+
+CondimentBase <|.. Mocha
+CondimentBase <|.. Soy
+CondimentBase <|.. Milk
+CondimentBase <|.. Whip
+CondimentBase <|.. Caramel
+CondimentBase <|.. Vanilla
+
+CoffeeBase <|-- CondimentBase
+CoffeeBase -> Size
+
+package client
+{
+    class CoffeeShopGUI
+    {
+        +CoffeeShopGUI()
+    }
+}
+
+class App
+{
+    {static} +main()
+}
+
+@enduml

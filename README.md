@@ -1,18 +1,17 @@
 ## Getting Started
+The entrypoint is App.java. No build system is used so either use vscode or the java command to compile.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+A jar file will be provided to run:
+    java -jar shop.jar
 
 ## Folder Structure
 
-The workspace contains two folders by default, where:
-
 - `src`: the folder to maintain sources
 - `lib`: the folder to maintain dependencies
+- `docs`: the folder containing diagrams, instructions, and javadoc(if applicable)
+- `tools` : contains any addition programs used for documentation and planning
 
 Meanwhile, the compiled output files will be generated in the `bin` folder by default.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
 ## Dependency Management
-
 The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
