@@ -1,8 +1,8 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import client.ConsoleShop;
 
+/**
+ * 
+ */
 public class App 
 {
     enum Flags
