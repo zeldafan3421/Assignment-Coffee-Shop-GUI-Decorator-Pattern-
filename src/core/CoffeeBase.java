@@ -42,4 +42,19 @@ public abstract class CoffeeBase
      * @return
      */
     public abstract double cost();
+
+    protected double getSizeMultiplyer()
+    {
+        switch (size) 
+        {
+            case Size.SMALL:
+                return 1.0;
+            case Size.MEDIUM:
+                return 1.2;
+            case Size.LARGE:
+                return 1.4;
+            default:
+                return 0.0;
+        }
+    }
 }

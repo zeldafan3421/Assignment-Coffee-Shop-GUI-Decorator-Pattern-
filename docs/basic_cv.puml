@@ -22,22 +22,44 @@ package core
         #CondimentBase(owner, desc, size)
         +getOwner()
     }
+
+    class CoffeeMixer
+    {
+        -CoffeeBase drink
+
+        +setHouseBlend(size)
+        +setDecafCoffee(size)
+        +setExpresso(size)
+        +setDarkRoast(size)
+
+        +addMilk(size)
+        +addMocha(size)
+        +addSoy(size)
+        +addCaramel(size)
+        +addVanilla(size)
+        +addWhip(size)
+
+        +prepare()
+    }
     
     class DecafCoffee
     {
         +DecafCoffee(size)
         +cost()
     }
+
     class Expresso
     {
         +Expresso(size)
         +cost()
     }
+
     class HomeBlend
     {
         +Expresso(size)
         +cost()
     }
+
     class DarkRoast
     {
         +DarkRoast(size)
@@ -102,6 +124,8 @@ CondimentBase <|.. Vanilla
 
 CoffeeBase <|-- CondimentBase
 CoffeeBase -> Size
+
+CoffeeMixer *-- CoffeeBase
 
 package client
 {
