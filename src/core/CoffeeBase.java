@@ -28,6 +28,11 @@ public abstract class CoffeeBase
         return description;
     }
 
+    public void setSize(Size size)
+    {
+        this.size = size;
+    }
+
     /**
      * 
      * @return

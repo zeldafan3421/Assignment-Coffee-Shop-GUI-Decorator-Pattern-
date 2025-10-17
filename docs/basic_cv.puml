@@ -136,7 +136,11 @@ package client
 
     class ConsoleShop
     {
+        -ArrayList<CoffeeBase> baseOptions
+        -ArrayList<CoffeeBase> addonOptions
         +ConsoleShop()
+        -run()
+        -printMenuList(list)
     }
     caption for testing purposes 
 }
