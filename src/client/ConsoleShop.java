@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import core.CoffeeBase;
-import core.CoffeeMixer;
 import core.Size;
 import core.bases.DarkRoast;
 import core.bases.DecafCoffee;
@@ -58,6 +57,8 @@ public class ConsoleShop
         System.out.println("Console version: ");
 
         printMenu();
+
+        //select drink by [number] base size addons[name][size]...
 
         while (kb.hasNextLine())
         {
