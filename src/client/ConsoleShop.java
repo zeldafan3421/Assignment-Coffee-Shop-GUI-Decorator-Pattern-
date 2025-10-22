@@ -79,7 +79,7 @@ public class ConsoleShop
                 }
                 else if ((base = baseOptions.get(userSel)) != null)
                 {
-                    System.out.printf("Select Size:\n0:Small\n1:Medium\n2:Large\nInput:");
+                    System.out.printf("Select Size:\n\t0:Small\n\t1:Medium\n\t2:Large\n\tInput:");
                     userSel = kb.nextInt();
                     currentMixer.setBase(base, Size.values()[userSel]);
                     
@@ -89,10 +89,10 @@ public class ConsoleShop
             else
             {
                 boolean addons = false;
-                System.out.print("Add more addons? 0 : yes, 1 : no\nInput:");
+                System.out.print("Add more addons? 1 : yes, 0 : no\nInput:");
                 userSel = kb.nextInt();
 
-                if (userSel == 0) 
+                if (userSel == 1) 
                     addons = true;
 
                 CondimentBase base = null;
@@ -102,7 +102,7 @@ public class ConsoleShop
                     final CoffeeBase mix = currentMixer.prepare();
                     final double totalCost = mix.cost();
 
-                    Stack<String> ticketItems = new Stack();
+                    Stack<String> ticketItems = new Stack<>();
                     CoffeeBase current = mix;
                     System.out.printf("Ticket:\n");
 
@@ -112,18 +112,19 @@ public class ConsoleShop
                         final Size size = current.getSize();
                         current = ((CondimentBase) current).getOwner();
 
-                        final double cost = totalCost - (totalCost - current.cost());
+                        final double cost = totalCost - current.cost();
 
                         ticketItems.push(String.format("\t%-20s\t %-8s \t %.2f$", name, size.toString(), cost));
                     }
 
                     final String name = current.getDescription();
                     final Size size = current.getSize();
-                    final double cost = (totalCost - current.cost());
+                    final double cost = current.cost();
 
-                    System.out.printf("\t%-20s\t %-8s \t %.2f$\n", name, size.toString(), cost);
+                    System.out.printf("\t\t%-20s\t %-8s \t %.2f$\n", name, size.toString(), cost);
+
                     for (String s : ticketItems)
-                    {
+                    {   
                         System.out.println(s);
                     }
 
@@ -131,15 +132,18 @@ public class ConsoleShop
                 }
                 else
                 {
+                    System.out.print("Input:");
                     userSel = kb.nextInt();
                     base = (CondimentBase)addonOptions.get(userSel);
 
-                    System.out.printf("Select Size:\n0:Small\n1:Medium\n2:Large\nInput:");
+                    System.out.printf("Select Size:\n\t0:Small\n\t1:Medium\n\t2:Large\nInput:");
                     userSel = kb.nextInt();
                     currentMixer.addMixin(base, Size.values()[userSel]);
                 }
             }
         } while (!currentMixer.getIsReady());
+
+        kb.close();
     }
 
     private void printMenu() 
