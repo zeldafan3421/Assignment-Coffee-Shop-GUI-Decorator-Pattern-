@@ -2,8 +2,11 @@ package client;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 import core.CoffeeBase;
+import core.CoffeeMixer;
+import core.CondimentBase;
 import core.Size;
 import core.bases.DarkRoast;
 import core.bases.DecafCoffee;
@@ -57,13 +60,86 @@ public class ConsoleShop
         System.out.println("Console version: ");
 
         printMenu();
+        CoffeeMixer currentMixer = new CoffeeMixer();
 
-        //select drink by [number] base size addons[name][size]...
+        int userSel = 0;
 
-        while (kb.hasNextLine())
+        do
         {
-            final String input = kb.nextLine();
-        }
+            System.out.print("Input:");
+
+            if (!currentMixer.hasBase())
+            {
+                userSel = kb.nextInt();
+                CoffeeBase base = null;
+
+                if (baseOptions.size() <= userSel)
+                {
+                    System.out.println("invalid selection");
+                }
+                else if ((base = baseOptions.get(userSel)) != null)
+                {
+                    System.out.printf("Select Size:\n0:Small\n1:Medium\n2:Large\nInput:");
+                    userSel = kb.nextInt();
+                    currentMixer.setBase(base, Size.values()[userSel]);
+                    
+                    System.out.println(baseOptions.get(0).getDescription());
+                }
+            }
+            else
+            {
+                boolean addons = false;
+                System.out.print("Add more addons? 0 : yes, 1 : no\nInput:");
+                userSel = kb.nextInt();
+
+                if (userSel == 0) 
+                    addons = true;
+
+                CondimentBase base = null;
+
+                if (!addons)
+                {
+                    final CoffeeBase mix = currentMixer.prepare();
+                    final double totalCost = mix.cost();
+
+                    Stack<String> ticketItems = new Stack();
+                    CoffeeBase current = mix;
+                    System.out.printf("Ticket:\n");
+
+                    while (current instanceof CondimentBase)
+                    {
+                        final String name = current.getDescription();
+                        final Size size = current.getSize();
+                        current = ((CondimentBase) current).getOwner();
+
+                        final double cost = totalCost - (totalCost - current.cost());
+
+                        ticketItems.push(String.format("\t%-20s\t %-8s \t %.2f$", name, size.toString(), cost));
+                    }
+
+                    final String name = current.getDescription();
+                    final Size size = current.getSize();
+                    final double cost = (totalCost - current.cost());
+
+                    System.out.printf("\t%-20s\t %-8s \t %.2f$\n", name, size.toString(), cost);
+                    for (String s : ticketItems)
+                    {
+                        System.out.println(s);
+                    }
+
+                    System.out.printf("Total : %.2f$", totalCost);
+                }
+                else
+                {
+                    userSel = kb.nextInt();
+                    base = (CondimentBase)addonOptions.get(userSel);
+
+                    System.out.printf("Select Size:\n0:Small\n1:Medium\n2:Large\nInput:");
+                    userSel = kb.nextInt();
+                    currentMixer.addMixin(base, Size.values()[userSel]);
+                }
+            }
+        } while (!currentMixer.getIsReady());
     }
 
     private void printMenu() 
@@ -79,7 +155,9 @@ public class ConsoleShop
 
     private void printMenuList(ArrayList<CoffeeBase> list)
     {
-        final String entryTemplate = "\t%-20s\tlarge %.2f$\tmedium %.2f$\t small %.2f$";
+        final String entryTemplate = "%d:\t%-20s\tlarge %.2f$\tmedium %.2f$\t small %.2f$";
+
+        int id = 0;
 
         for (CoffeeBase o : list)
         {
@@ -94,7 +172,7 @@ public class ConsoleShop
             o.setSize(Size.LARGE);
             final double largeCost = o.cost();
             
-            System.out.println(String.format(entryTemplate, name, largeCost, mediumCost, smallCost));
+            System.out.println(String.format(entryTemplate, id++, name, largeCost, mediumCost, smallCost));
         }
     }
 }

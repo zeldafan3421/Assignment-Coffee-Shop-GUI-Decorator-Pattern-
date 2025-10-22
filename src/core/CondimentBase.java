@@ -27,4 +27,10 @@ public abstract class CondimentBase extends CoffeeBase
     {
         return owner;
     }
+
+    public CondimentBase setOwner(CoffeeBase owner)
+    {
+        this.owner = owner;
+        return this;
+    }
 }

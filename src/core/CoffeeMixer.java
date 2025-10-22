@@ -11,15 +11,25 @@ import core.condiments.Whip;
 public class CoffeeMixer
 {
     private CoffeeBase drink;
+    private boolean isReady;
 
     public CoffeeMixer()
     {
         drink = null;
+        isReady = false;
     }
 
-    public CoffeeMixer setHouseBlend(Size size)
+    public CoffeeMixer setBase(CoffeeBase base, Size size)
     {
-        drink = new HomeBlend(size);
+        drink = base;
+        base.setSize(size);
+
+        return this;
+    }
+
+    public CoffeeMixer addMixin(CondimentBase base, Size size)
+    {
+        drink = base.setOwner(drink);
         return this;
     }
 
@@ -61,6 +71,17 @@ public class CoffeeMixer
 
     public CoffeeBase prepare()
     {
+        isReady = true;
         return drink;
+    }
+
+    public boolean getIsReady()
+    {
+        return isReady;
+    }
+
+    public boolean hasBase() 
+    {
+        return drink != null;
     }
 }
